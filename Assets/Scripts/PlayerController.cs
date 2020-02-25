@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>Represents the parts of the player object that the player controls.</summary>
@@ -6,6 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     /// <summary>Speed factor affecting the player's movement.</summary>
     public float speed = 24;
+
+    /// <summary>The number of times the player can survive traps.</summary>
+    public int health = 5;
 
     // tracks which directions are being held
     private readonly Stack<Directions> moveStack;
@@ -97,8 +101,12 @@ public class PlayerController : MonoBehaviour
     protected void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Pickup")) {
             this.score++;
-            Debug.Log(score);
+            Debug.Log(String.Format("Score: {0}", this.score));
             Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("Trap")) {
+            this.health--;
+            Debug.Log(String.Format("Health: {0}", this.health));
         }
     }
 
