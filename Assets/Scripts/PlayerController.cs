@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>Represents the parts of the player object that the player controls.</summary>
 public class PlayerController : MonoBehaviour
@@ -150,6 +151,11 @@ public class PlayerController : MonoBehaviour
                 this.moveStack.Push(Directions.NW);
             else if (old == Directions.S || old == Directions.SE)
                 this.moveStack.Push(Directions.SW);
+        }
+
+        if (this.health < 1) {
+            Debug.Log("Game Over!");
+            SceneManager.LoadScene("maze");
         }
     }
 }
