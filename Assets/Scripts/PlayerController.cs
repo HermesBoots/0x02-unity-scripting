@@ -96,7 +96,6 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>Called when the player collides with a trigger.</summary>
-    /// <remarks>Currently, the only trigger is the collectible coin.</remarks>
     /// <param name="other">Collider touched by the player.</param>
     protected void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Pickup")) {
@@ -107,6 +106,9 @@ public class PlayerController : MonoBehaviour
         else if (other.CompareTag("Trap")) {
             this.health--;
             Debug.Log(String.Format("Health: {0}", this.health));
+        }
+        else if (other.CompareTag("Goal")) {
+            Debug.Log("You win!");
         }
     }
 
