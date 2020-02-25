@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     // tracks which directions are being held
     private readonly Stack<Directions> moveStack;
 
+    // tracks collected coins
+    private int score = 0;
+
     /// <summary>Which direction the player is moving.</summary>
     public Directions Direction { get { return this.moveStack.Peek(); } }
 
@@ -86,6 +89,17 @@ public class PlayerController : MonoBehaviour
             return Directions.None;
         this.moveStack.Pop();
         return this.Direction;
+    }
+
+    /// <summary>Called when the player collides with a trigger.</summary>
+    /// <remarks>Currently, the only trigger is the collectible coin.</remarks>
+    /// <param name="other">Collider touched by the player.</param>
+    protected void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Pickup")) {
+            this.score++;
+            Debug.Log(score);
+            Destroy(other.gameObject);
+        }
     }
 
     /// <summary>Process movement key presses.</summary>
